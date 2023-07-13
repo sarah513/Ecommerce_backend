@@ -89,6 +89,7 @@ export const updateProduct = ErrorHandler(
         let { id } = req.params
         let { price, isAvailable, prodName, prodDescription, sale, category } = req.body
         let newPrice
+        console.log(req.body)
         if (price) {
             newPrice = price
         }
