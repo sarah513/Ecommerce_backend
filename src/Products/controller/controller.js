@@ -89,6 +89,9 @@ export const updateProduct = ErrorHandler(
         let { id } = req.params
         let { price, isAvailable, prodName, prodDescription, sale, category } = req.body
         let newPrice
+        if (price) {
+            newPrice = price
+        }
         if (sale) {
             newPrice = price - sale
         } else {
