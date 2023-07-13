@@ -9,21 +9,24 @@ export const signup = ErrorHandler(async (req, res, next) => {
     let { firstName, lastName, gmail, password, location, mobileNo } = req.body
     const done = await userModel.create({
         firstName, lastName, gmail, password, location, mobileNo
-    }).catch(err => next(new Error('email already exist')))
+    }).catch(err => next(new Error(err)))
     if (done) {
         const token = generateToken({ gmail })
         const options = createOptions(gmail, "http://localhost:5050/user/", token)
         sendEmail(options)
         doneResponse(res, 'please verify your gmail account ')
     } else {
-        next(new Error('error'))
+       next(new Error('error',{cause:500}))
     }
 })
 export const login = ErrorHandler(
     async (req, res, next) => {
-        let { email, password } = req.body
-        let loginn = await userModel.findOne({ gmail: email, password })
-        loginn ? doneResponse(res, loginn) : next(new Error('in-valid email or password', { cause: 401 }))
+        let { gmail, password } = req.body
+        console.log({ gmail, password })
+        let loginn = await userModel.findOne({ gmail, password })
+        console.log(loginn)
+        const token = generateToken({ gmail })
+        loginn ? doneResponse(res, {loginn,token}) : next(new Error('in-valid email or password', { cause: 401 }))
     }
 )
 export const getAllUsers = ErrorHandler(

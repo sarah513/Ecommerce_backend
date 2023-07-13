@@ -8,9 +8,36 @@ import algoliasearch from "algoliasearch";
 export const addProduct = ErrorHandler(async (req, res, next) => {
     let arr = []
     let { prodName, price, prodDescription, category } = req.body
-    if (req.files) {
+    console.log(req.body)
+   
+    if (req.files.length) {
         for (let file of req.files) {
-            let { secure_url, public_id } = await cloudinary.uploader.upload(file.path, { folder: `products/${req.body.prodName}` })
+            console.log(file.path)
+            let nam=req.body.prodName
+            nam = nam.replaceAll('.', '')
+            nam = nam.replaceAll('-', '')
+            nam = nam.replaceAll('%', '')
+            nam = nam.replaceAll('&', '')
+            nam = nam.replaceAll('[', '')
+            nam = nam.replaceAll(']', '')
+            nam = nam.replaceAll('!', '')
+            nam = nam.replaceAll('@', '')
+            nam = nam.replaceAll('#', '')
+            nam = nam.replaceAll('^', '')
+            nam = nam.replaceAll('*', '')
+            nam = nam.replaceAll('$', '')
+            nam = nam.replaceAll('~', '')
+            nam = nam.replaceAll('`', '')
+            nam = nam.replaceAll('/', '')
+            nam = nam.replaceAll('+', '')
+            nam = nam.replaceAll(')', '')
+            nam = nam.replaceAll('$', '')
+            nam = nam.replaceAll('=', '')
+            nam = nam.replaceAll('}', '')
+            nam = nam.replaceAll('|', '')
+        
+            let { secure_url, public_id } = await cloudinary.uploader.upload(file.path, { folder: `products/${nam}` }).catch(err=>{next(new Error("name of product not suitable"))})
+            console.log({ secure_url, public_id })
             arr.push({ secure_url, public_id })
         }
     }
@@ -22,6 +49,7 @@ export const addProduct = ErrorHandler(async (req, res, next) => {
         category,
         images: arr
     }).then(result => { doneResponse(res, result) }).catch(err => { next(new Error(err, { cause: 500 })) })
+
 })
 export const getAllProducts = ErrorHandler(
     async (req, res, next) => {
@@ -55,7 +83,18 @@ export const dltProduct = ErrorHandler(
         const { id } = req.params
         console.log(id)
         let delted = await ProdModel.findByIdAndDelete(id)
+        if(delted){
+            let arr= delted.images
+        let tr
+        console.log(arr)
+        arr.map(async ele=>{
+            tr= await cloudinary.uploader.destroy(ele.public_id, function(error,result) {
+            console.log(result, error) });
+        })
+        console.log(tr)
         delted ? doneResponse(res, delted) : next(new Error('This product is already deleted', { cause: 404 }))
+        }
+
     }
 )
 export const getProductById = ErrorHandler(
@@ -85,12 +124,12 @@ export const updateProduct = ErrorHandler(
 )
 export const searchByName = ErrorHandler(
     async (req, res, next) => {
-        const { name } = req.params
+        console.log('ssss')
+        const { name } = req.query
         const client = algoliasearch(process.env.ALOGIAAPPLICATIONID, process.env.ADMINAPIKEY);
         const index = client.initIndex(process.env.INDEXNAME);
         const allproductdata = await ProdModel.find()
-
-
+        console.log(allproductdata)
         const transformedRecords = allproductdata.map(record => ({
             ...record,
             objectID: record._id
@@ -101,7 +140,7 @@ export const searchByName = ErrorHandler(
             console.log(objectIDs);
         })
             .catch(err => {
-                console.log(err);
+                next(new Error('no items found'))
             });
 
         index
