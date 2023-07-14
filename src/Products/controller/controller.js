@@ -7,7 +7,7 @@ import algoliasearch from "algoliasearch";
 
 export const addProduct = ErrorHandler(async (req, res, next) => {
     let arr = []
-    let { prodName, price, prodDescription, category,brand } = req.body
+    let { prodName, price, prodDescription, category,brand,isAvailable } = req.body
     console.log(req.body)
    
     if (req.files.length) {
@@ -24,6 +24,7 @@ export const addProduct = ErrorHandler(async (req, res, next) => {
         prodName,
         price,
         brand,
+        isAvailable,
         newPrice: price,
         prodDescription,
         category,
