@@ -88,7 +88,7 @@ export const getProductById = ErrorHandler(
 export const updateProduct = ErrorHandler(
     async (req, res, next) => {
         let { id } = req.params
-        let { price, isAvailable, prodName, prodDescription, sale, category } = req.body
+        let { price, isAvailable, prodName, prodDescription, sale, category,brand } = req.body
         let newPrice
         console.log(req.body)
         if (price) {
@@ -102,7 +102,7 @@ export const updateProduct = ErrorHandler(
             }
 
         }
-        let updated = await ProdModel.findByIdAndUpdate(id, { price, isAvailable, prodName, prodDescription, newPrice, sale, category }, { new: true })
+        let updated = await ProdModel.findByIdAndUpdate(id, { price, isAvailable, prodName, prodDescription, newPrice, sale, category,brand }, { new: true })
         updated ? doneResponse(res, updated) : next(new Error('error in update product or product dosn`t exist', { cause: 500 }))
     }
 )
