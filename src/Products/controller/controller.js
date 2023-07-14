@@ -53,7 +53,7 @@ export const getAllProducts = ErrorHandler(
             };
         }else if(brand){
             query = {
-                brand: brande
+                brand: brand
             };
                 }
         let allProducts = query ? await ProdModel.find(query) : await ProdModel.find()
