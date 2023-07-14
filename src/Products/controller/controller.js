@@ -33,7 +33,7 @@ export const addProduct = ErrorHandler(async (req, res, next) => {
 })
 export const getAllProducts = ErrorHandler(
     async (req, res, next) => {
-        let { category, price } = req.query
+        let { category, price ,brand } = req.query
         console.log({ category, price })
         let query
         if (category && price) {
@@ -45,14 +45,17 @@ export const getAllProducts = ErrorHandler(
         } else if (category) {
             query = {
                 category: category
-            }
+            };
         } else if (price) {
             price = JSON.parse(price)
             query = {
                 price: { $gte: price[0], $lte: price[1] },
             };
-        }
-
+        }else if(brand){
+            query = {
+                brand: brande
+            };
+                }
         let allProducts = query ? await ProdModel.find(query) : await ProdModel.find()
         allProducts ? doneResponse(res, allProducts) : next(new ErrorHandler('No products available at this time', { cause: 404 }))
     }
