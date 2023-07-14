@@ -7,7 +7,7 @@ import algoliasearch from "algoliasearch";
 
 export const addProduct = ErrorHandler(async (req, res, next) => {
     let arr = []
-    let { prodName, price, prodDescription, category } = req.body
+    let { prodName, price, prodDescription, category,brand } = req.body
     console.log(req.body)
    
     if (req.files.length) {
@@ -23,6 +23,7 @@ export const addProduct = ErrorHandler(async (req, res, next) => {
     ProdModel.create({
         prodName,
         price,
+        brand,
         newPrice: price,
         prodDescription,
         category,
