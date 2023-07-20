@@ -29,6 +29,14 @@ export const login = ErrorHandler(
         loginn ? doneResponse(res, {loginn,token}) : next(new Error('in-valid email or password', { cause: 401 }))
     }
 )
+export const getUserById = ErrorHandler(
+    async (req, res, next) => {
+        let { id } = req.params
+        console.log(id)
+        let user = await userModel.findById(id)
+        user ? doneResponse(res, user) : next(new Error(`User doesn't exist`, { cause: 404 }))
+    }
+)
 export const getAllUsers = ErrorHandler(
     async (req, res, next) => {
         let data = await userModel.find()
