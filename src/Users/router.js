@@ -2,7 +2,7 @@ import { Router } from "express";
 import { userModel } from "../../DB/models/user_model.js";
 import { createOptions, sendEmail } from "../../utils/nodemailer.js";
 import { generateToken } from "../../utils/generateToken.js";
-import { addToCart, addToWishList, dltFromWishList, dltuser, getAllUsers, login, signup, updateCart, verify } from "./controller/controller.js";
+import { addToCart, addToWishList, dltFromWishList, dltuser, getAllUsers, login, signup,getUserById, updateCart, verify } from "./controller/controller.js";
 
 
 const router = Router()
@@ -10,6 +10,8 @@ const router = Router()
 router.get('/', getAllUsers)
 //signup
 router.post('/signup', signup)
+//get user by id 
+router.get('/by/:id',getUserById)
 //login
 router.post('/login', login)
 //delete user
