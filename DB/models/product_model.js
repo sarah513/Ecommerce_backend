@@ -9,6 +9,7 @@ const productSchema = new Schema({
     sale:{type:Number, default:0},
     category:{type:String},
     images:[{type:Object}],
+    isNew:{type:Boolean,default:false}
    
 })
 export const ProdModel = model('Product', productSchema)
