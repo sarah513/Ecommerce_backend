@@ -20,7 +20,7 @@ export const addNewArrival=ErrorHandler(
 export const deleteNewArrival=ErrorHandler(
     async (req, res, next) => {
         let {id}= req.params
-        let done = await newModel.findByIdAndDelete(id)
+        let done = await newModel.findOneAndDelete({prodID:id})
         done ? doneResponse(res, done) : next(new Error("error in updating order "))
     }
 )
