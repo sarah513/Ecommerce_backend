@@ -12,7 +12,16 @@ const productSchema = new Schema({
     isNew:{type:Boolean,default:false},
     quantity:{type:Number, default:1},
     Rating:{type:Number,default:0},
-    raters:{type:Number , default:0}
+    raters:[{
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
+        rate: { type: Number, default: 0 }
+    }],
+    comments:[
+        {
+        user: { type: Schema.Types.ObjectId, ref: 'User' },
+        comment: { type: String }
+    }
+    ]
    
 })
 export const ProdModel = model('Product', productSchema)
