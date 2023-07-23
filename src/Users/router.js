@@ -2,7 +2,7 @@ import { Router } from "express";
 import { userModel } from "../../DB/models/user_model.js";
 import { createOptions, sendEmail } from "../../utils/nodemailer.js";
 import { generateToken } from "../../utils/generateToken.js";
-import { addToCart, addToWishList, dltFromWishList, dltuser, getAllUsers, login, signup,getUserById, updateCart, verify } from "./controller/controller.js";
+import { addToCart, addToWishList, dltFromWishList, dltuser, getAllUsers, login, signup,getUserById, updateCart, verify,dltFromCart } from "./controller/controller.js";
 
 
 const router = Router()
@@ -26,5 +26,8 @@ router.patch('/updatecart/:id/:_id',updateCart)
 router.patch('/addtowishlist/:id/:_id',addToWishList)
 // remove from wish list -----> id => user id   _id => product id
 router.patch('/dltfromwishlist/:id/:_id',dltFromWishList)
+
+// remove from cart -----> id => user id   _id => product id
+router.patch('/dltfromcart/:id/:_id',dltFromCart)
 
 export default router
