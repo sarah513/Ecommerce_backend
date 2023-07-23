@@ -69,6 +69,8 @@ export const addToCart = ErrorHandler(
         let { cart } = user
         let newCart = []
         let flag = true
+        console.log("ana el cart")
+        console.log(cart)
         cart.map(item => {
             console.log(item)
             console.log(_id)
