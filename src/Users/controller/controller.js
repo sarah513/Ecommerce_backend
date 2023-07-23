@@ -78,6 +78,8 @@ export const addToCart = ErrorHandler(
                 console.log(newItem)
                 newItem._doc.quantity = item.quantity + quantity
                 newCart.push(newItem._doc)
+                console.log("ana new cart")
+                console.log(newCart)
             } else {
                 newCart.push(item)
             }
@@ -125,7 +127,7 @@ export const dltFromCart=ErrorHandler(
          let { cart } = user
          let newid=new mongoose.Types.ObjectId(_id)
          let arr=[]
-         let newcart= cart.map(items=>{console.log(items); return !(items._id.equals(_id))})
+         let newcart= cart.map(items=>{!(items._id.equals(_id))})
           console.log(newcart)
          let add = await userModel.findByIdAndUpdate(id, { cart: newcart }, { new: true })
          add ? doneResponse(res, add) : next(new Error("error in adding to cart list"))
