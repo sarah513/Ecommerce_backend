@@ -107,7 +107,7 @@ export const updateProduct = ErrorHandler(
             }
 
         }
-        let updated = await ProdModel.findByIdAndUpdate(id, { price, isAvailable, prodName, prodDescription, newPrice, sale, category,brand,isNew,quantity,Rating,raters }, { new: true })
+        let updated = await ProdModel.findByIdAndUpdate(id, { price, isAvailable, prodName, prodDescription, newPrice, sale, category,brand,isNew,quantity,Rating,raters,comments }, { new: true })
         updated ? doneResponse(res, updated) : next(new Error('error in update product or product dosn`t exist', { cause: 500 }))
     }
 )
