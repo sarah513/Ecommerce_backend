@@ -10,7 +10,8 @@ const productSchema = new Schema({
     category:{type:String},
     images:[{type:Object}],
     isNew:{type:Boolean,default:false},
-    quantity:{type:Number, default:1}
+    quantity:{type:Number, default:1},
+    Rating:{type:Number,default:5}
    
 })
 export const ProdModel = model('Product', productSchema)
