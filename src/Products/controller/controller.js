@@ -7,7 +7,7 @@ import algoliasearch from "algoliasearch";
 
 export const addProduct = ErrorHandler(async (req, res, next) => {
     let arr = []
-    let { prodName, price, prodDescription, category,brand,isAvailable } = req.body
+    let { prodName, price, prodDescription, category,brand,isAvailable,quantity } = req.body
     console.log(req.body)
    
     if (req.files.length) {
@@ -28,6 +28,7 @@ export const addProduct = ErrorHandler(async (req, res, next) => {
         newPrice: price,
         prodDescription,
         category,
+        quantity,
         images: arr
     }).then(result => { doneResponse(res, result) }).catch(err => { next(new Error(err, { cause: 500 })) })
 
@@ -92,7 +93,7 @@ export const getProductById = ErrorHandler(
 export const updateProduct = ErrorHandler(
     async (req, res, next) => {
         let { id } = req.params
-        let { price, isAvailable, prodName, prodDescription, sale, category,brand ,isNew } = req.body
+        let { price, isAvailable, prodName, prodDescription, sale, category,brand ,isNew .quantity} = req.body
         let newPrice
         console.log(req.body)
         if (price) {
@@ -106,7 +107,7 @@ export const updateProduct = ErrorHandler(
             }
 
         }
-        let updated = await ProdModel.findByIdAndUpdate(id, { price, isAvailable, prodName, prodDescription, newPrice, sale, category,brand,isNew }, { new: true })
+        let updated = await ProdModel.findByIdAndUpdate(id, { price, isAvailable, prodName, prodDescription, newPrice, sale, category,brand,isNew,quantity }, { new: true })
         updated ? doneResponse(res, updated) : next(new Error('error in update product or product dosn`t exist', { cause: 500 }))
     }
 )
