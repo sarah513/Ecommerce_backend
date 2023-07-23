@@ -11,7 +11,7 @@ const productSchema = new Schema({
     images:[{type:Object}],
     isNew:{type:Boolean,default:false},
     quantity:{type:Number, default:1},
-    Rating:{type:Number,default:5},
+    Rating:{type:Number,default:0},
     raters:{type:Number , default:0}
    
 })
