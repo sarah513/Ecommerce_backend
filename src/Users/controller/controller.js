@@ -118,7 +118,18 @@ export const updateCart = ErrorHandler(
         add ? doneResponse(res, add) : next(new Error("error in updating cart"))
     }
 )
-
+export const dltFromCart=ErrorHandler(
+    async(req,res,next)=>{
+         let { id, _id } = req.params
+         let user = await userModel.findById(id)
+         let { cart } = user
+         let newid=new mongoose.Types.ObjectId(_id)
+         let newcart= cart.filter(items=> !(items.product.equals(_id)))
+          console.log(newcart)
+         let add = await userModel.findByIdAndUpdate(id, { cart: newcart }, { new: true })
+         add ? doneResponse(res, add) : next(new Error("error in adding to cart list"))
+     }
+ )
 export const addToWishList = ErrorHandler(
     async (req, res, next) => {
         let { id, _id } = req.params
