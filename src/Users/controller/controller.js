@@ -70,7 +70,7 @@ export const addToCart = ErrorHandler(
         let newCart = []
         let flag = true
         cart.map(item => {
-            console.log(item._id.toString() == _id)
+            console.log(item)
             console.log(_id)
             if (item._id.toString() == _id) {
                 flag = false
