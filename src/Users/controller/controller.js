@@ -79,7 +79,6 @@ export const addToCart = ErrorHandler(
                 let newItem = { ...item }
                 console.log(newItem)
                 newItem._doc.quantity = item.quantity + quantity
-                
                 newCart.push(newItem._doc)
                 console.log("ana new cart")
                 console.log(newCart)
@@ -89,7 +88,7 @@ export const addToCart = ErrorHandler(
 
         })
         if (flag) {
-            newCart.push({ _id, quantity })
+            newCart.push({ _id, quantity,price })
         }
         console.log(newCart)
         let add = await userModel.findByIdAndUpdate(id, { cart: newCart }, { new: true })
