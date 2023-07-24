@@ -137,6 +137,13 @@ export const dltFromCart=ErrorHandler(
          add ? doneResponse(res, add) : next(new Error("error in adding to cart list"))
      }
  )
+export const dltCart = ErrorHandler(
+    async (req, res, next) => {
+        let { id } = req.params
+        let add = await userModel.findByIdAndUpdate(id, {cart:[]}, { new: true })
+        add ? doneResponse(res, add) : next(new Error("error in deleteing"))
+    }
+)
 export const addToWishList = ErrorHandler(
     async (req, res, next) => {
         let { id, _id } = req.params
