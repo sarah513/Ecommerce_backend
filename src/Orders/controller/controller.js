@@ -10,7 +10,7 @@ export const addOrder = ErrorHandler(
         let price = 0
         console.log(cart)
         cart.map(ele => {
-            price += (ele.quantity * ele.newPrice)
+            price += (ele.quantity * ele.price)
         })
         console.log(price)
 
