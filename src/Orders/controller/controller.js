@@ -49,3 +49,25 @@ export const updateOrder = ErrorHandler(
         done ? doneResponse(res, done) : next(new Error("error in updating order "))
     }
 )
+export const getOrders=ErrorHandler(
+    async (req, res, next) => {
+        let done = await orderModel.find()
+        done ? doneResponse(res, done) : next(new Error("error in getting order "))
+    }
+)
+
+export const getOrderByState=ErrorHandler(
+    async (req, res, next) => {
+        let {state}=req.query
+        let done = await orderModel.find({state})
+        done ? doneResponse(res, done) : next(new Error("error in getting order "))
+    }
+)
+
+export const deleteOrder=ErrorHandler(
+    async (req, res, next) => {
+        let {id}=req.params
+        let done = await orderModel.findByIdAndDelete(id)
+        done ? doneResponse(res, done) : next(new Error("error in deleting order "))
+    }
+)
