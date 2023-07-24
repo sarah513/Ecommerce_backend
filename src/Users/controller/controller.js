@@ -99,7 +99,7 @@ export const addToCart = ErrorHandler(
 export const updateCart = ErrorHandler(
     async (req, res, next) => {
         let { id, _id } = req.params
-        let { quantity } = req.body
+        let { quantity ,price } = req.body
         let user = await userModel.findById(id)
         let { cart } = user
         let newCart = []
@@ -111,6 +111,7 @@ export const updateCart = ErrorHandler(
                     let newItem = { ...item._doc }
                     console.log(newItem)
                     newItem["quantity"] = quantity
+                    newItem["price"] = price
                     console.log(quantity)
                     console.log(newItem.quantity)
                     newCart.push(newItem)
