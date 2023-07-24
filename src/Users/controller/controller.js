@@ -127,9 +127,11 @@ export const dltFromCart=ErrorHandler(
          let { id, _id } = req.params
          let user = await userModel.findById(id)
          let { cart } = user
+        console.log("ana el cart abl el delete",cart)
          let newid=new mongoose.Types.ObjectId(_id)
          let arr=[]
          let newcart= cart.filter(items=>{!(items._id.equals(_id))})
+        console.log("ana el cart b3d el delete",newcart)
           console.log(newcart)
          let add = await userModel.findByIdAndUpdate(id, { cart: newcart }, { new: true })
          add ? doneResponse(res, add) : next(new Error("error in adding to cart list"))
