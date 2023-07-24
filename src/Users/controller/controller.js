@@ -63,7 +63,7 @@ export const dltuser = ErrorHandler(
 )
 export const addToCart = ErrorHandler(
     async (req, res, next) => {
-        let { _id, quantity } = req.body
+        let { _id, quantity ,price} = req.body
         let { id } = req.params
         let user = await userModel.findById(id)
         let { cart } = user
@@ -79,6 +79,7 @@ export const addToCart = ErrorHandler(
                 let newItem = { ...item }
                 console.log(newItem)
                 newItem._doc.quantity = item.quantity + quantity
+                
                 newCart.push(newItem._doc)
                 console.log("ana new cart")
                 console.log(newCart)
@@ -99,7 +100,7 @@ export const addToCart = ErrorHandler(
 export const updateCart = ErrorHandler(
     async (req, res, next) => {
         let { id, _id } = req.params
-        let { quantity ,price } = req.body
+        let { quantity } = req.body
         let user = await userModel.findById(id)
         let { cart } = user
         let newCart = []
@@ -111,7 +112,6 @@ export const updateCart = ErrorHandler(
                     let newItem = { ...item._doc }
                     console.log(newItem)
                     newItem["quantity"] = quantity
-                    newItem["price"] = price
                     console.log(quantity)
                     console.log(newItem.quantity)
                     newCart.push(newItem)
