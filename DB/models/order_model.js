@@ -12,7 +12,7 @@ const orderSchema = new Schema({
         quantity: { type: Number, default: 1 },
         price: { type: Number }
     }]
-})
+},{timestamps:true})
 // orderSchema.virtual('totalPrice').get(function () {
 //     let price = 0
 //     this.products.forEach(element => {
