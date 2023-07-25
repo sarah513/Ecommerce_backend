@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const connect=()=>{
-    mongoose.connect('mongodb+srv://careskin404:WN96iwlCRDsNWgVb@cluster0.yhtvclg.mongodb.net/?retryWrites=true&w=majority').then(
+    mongoose.connect(process.env.CONNECTION).then(
         (res)=>{
             console.log('connected')
         }
