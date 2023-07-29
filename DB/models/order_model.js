@@ -11,7 +11,9 @@ const orderSchema = new Schema({
         product: { type: Schema.Types.ObjectId, ref: 'Product' },
         quantity: { type: Number, default: 1 },
         price: { type: Number }
-    }]
+    }],
+    userNote:{type:String ,default:"No Notes"},
+    AdminNote:{type:String ,default:"No Notes"}
 },{timestamps:true})
 // orderSchema.virtual('totalPrice').get(function () {
 //     let price = 0
