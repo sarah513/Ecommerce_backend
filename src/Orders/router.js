@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addOrder, updateOrder ,getOrders, getOrderByState, deleteOrder } from "./controller/controller.js";
+import { addOrder, updateOrder ,getOrders, getOrderByState, deleteOrder,  deleteAllOrdersAlsoForUser } from "./controller/controller.js";
 const router = Router()
 // add order
 router.post('/add/:id',addOrder)
@@ -7,7 +7,7 @@ router.post('/add/:id',addOrder)
 router.patch('/update/:id',updateOrder)
 //get orders
 router.get('/all',getOrders)
-
+router.delete('/dltall/:id',deleteAllOrdersAlsoForUser)
 //filter
 router.get('/by',getOrderByState)
 
