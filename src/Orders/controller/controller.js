@@ -71,3 +71,18 @@ export const deleteOrder=ErrorHandler(
         done ? doneResponse(res, done) : next(new Error("error in deleting order "))
     }
 )
+
+export const deleteAllOrdersAlsoForUser=ErrorHandler(
+    async (req, res, next) => {
+        let {id}=req.params
+        let done = await orderModel.findByIdAndDelete(id)
+        // console.log(done)
+        let user = done.user
+        let result= await userModel.findById(user)
+        let{orders}=result
+        let newOrders=orders.filter((ele)=> ele !=id)
+        console.log(newOrders)
+        let done2= await userModel.findByIdAndUpdate(user,{orders:newOrders},{new:true})
+        done && done2 ? doneResponse(res, {done,done2}) : next(new Error("error in deleting order "))
+    }
+)
