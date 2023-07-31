@@ -6,7 +6,7 @@ import { userModel } from "../../../DB/models/user_model.js"
 export const addOrder = ErrorHandler(
     async (req, res, next) => {
         let { id } = req.params
-        let { cart, mobileNo, location } = req.body
+        let { cart, mobileNo, location,userNote } = req.body
         let price = 0
         console.log(cart)
         cart.map(ele => {
@@ -17,7 +17,7 @@ export const addOrder = ErrorHandler(
         let done = await orderModel.create({
             user: id,
             cart,
-            mobileNo, location, totalPrice: price
+            mobileNo, location, totalPrice: price ,userNote
 
         })
         console.log(done._id)
