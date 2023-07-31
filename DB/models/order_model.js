@@ -3,7 +3,7 @@ const orderSchema = new Schema({
     totalPrice: { type: Number },
     // shippingPrice: { type: Number, default: 50 },
     // price: { type: Number },
-    state: { type: String, enum: ['pending', 'accepted', 'shipping', 'canceled', 'done'], default: "pending" },
+    state: { type: String, enum: ['pending', 'accepted','ready to ship' ,'shipping', 'canceled', 'delivered'], default: "pending" },
     location: { type: String, required: true },
     mobileNo: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
