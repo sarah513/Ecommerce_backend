@@ -11,9 +11,12 @@ const userSchema = new Schema({
     wishList: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
     cart: [{
         product: { type: Schema.Types.ObjectId, ref: 'Product' },
-        quantity: { type: Number, default: 1 },
-        price:{ type: Number}
-    }]
+        quantity: { type: Number, default: 1 }
+    }],
+    rate: [{
+        product: { type: Schema.Types.ObjectId, ref: "Product"},
+        rate: { type: Number, default: 0 }
+    }],
 })
 
 export const userModel = model('User', userSchema)
