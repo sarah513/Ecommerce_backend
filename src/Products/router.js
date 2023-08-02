@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { fileUpload } from "../../utils/cloudMulter.js";
 
-import { addImageForProduct, addProduct, deleteImageOfProduct, dltProduct, getAllProducts, getProductById, searchByName, updateProduct } from "./controller/controller.js";
+import { addImageForProduct, addProduct, deleteImageOfProduct, dltProduct, getAllProducts, getProductById, searchByName, updateProduct , addRate} from "./controller/controller.js";
 import { ProdModel } from "../../DB/models/product_model.js";
 import { doneResponse } from "../../utils/done.js";
 const router = Router()
@@ -26,7 +26,8 @@ d?doneResponse(res,d):next(new Error("error"))
 })
 // update all product info except images
 router.put('/update/:id',updateProduct)
-
+// add rate 
+router.put('/rate/:uid/:pid', addRate)
 //search in data
 router.get('/search',searchByName)
 
